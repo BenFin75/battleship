@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import player from "./player";
 
 test('place horizontal ships', () => {
