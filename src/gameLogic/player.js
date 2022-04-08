@@ -21,17 +21,35 @@ const player = () => {
         length = 3;
         break;
     }
-    let end = []
+    if (type === "Carrier") {
+      length = 5;
+    }
+    let empty = true;
+    let end = [];
     if (orientation === 'H') {
       end[0] = start[0];
-      end[1] = start[1] + length;
+      end[1] = start[1] + length - 1;
+      for (let i = start[1]; i <= end[1]; i++) {
+        if (board.getGameBoard()[start[0]][i] === 1) {
+          empty = false;
+        }
+      }
     }
     if (orientation === 'V') {
-      end[0] = start[0] + length;
+      end[0] = start[0] + length - 1;
       end[1] = start[1];
+      for (let i = start[0]; i <= end[0]; i++) {
+        if (board.getGameBoard()[i][start[1]] === 1) {
+          empty = false;
+        }
+      }
     }
-    ships[type] = {start, end, "sunk": false}
-    board.placeShip(start, end);
+    if (empty === true) {
+      ships[type] = {start, end, "sunk": false}
+      board.placeShip(start, end);
+    } else {
+      return 'No Overlap'
+    }
   }
 
   const getGameBoard = () => {
