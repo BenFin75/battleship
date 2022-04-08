@@ -32,7 +32,8 @@ const gameBoard = () => {
   }
 
   const getGameBoard = () => {
-    return gameBoard
+    const gameBoardState = JSON.parse(JSON.stringify(gameBoard))
+    return gameBoardState
   }
 
   return { createGameBoard, placeShip, getHit, getGameBoard }
