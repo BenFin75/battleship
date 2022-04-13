@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import gameBoard from "./gameboard"
 
 test('creates gameboard', () => {

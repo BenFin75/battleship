@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { gameStart, gameState, gamePlay } from "./gameController";
 
 test('test for win wile not won', () => {
