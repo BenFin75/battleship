@@ -59,4 +59,4 @@ const gamePlay = (()=> {
   return { placeShip, shoot }
 })()
 
-module.exports = { possibleShips, gameStart, gameState, gamePlay }
+export { possibleShips, gameStart, gameState, gamePlay }

@@ -1,6 +1,6 @@
 import gameBoard from './gameboard';
 
-const player = () => {
+export default () => {
   const board = gameBoard();
   board.createGameBoard();
   let ships = {}
@@ -95,4 +95,3 @@ const player = () => {
   return { getGameBoard, placeShip, getHit, getSunkShips }
 };
 
-module.exports = player;
