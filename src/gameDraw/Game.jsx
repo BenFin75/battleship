@@ -4,7 +4,7 @@ import PlaceShips from './PlaceShips';
 import DrawBoards from './DrawBords';
 
 const Game = () => {
-  const [currentStage, setCurrentStage] = useState(0); // 0 = start, 1 = place shipd, 2 = play, 3 = gmae has been won
+  const [currentStage, setCurrentStage] = useState(0); // 0 = start, 1 = place ships, 2 = play, 3 = gmae has been won
   const [currentPlayer, setCurrentPlayer] = useState(null);
   const [selectedShip, setSelectedShip] = useState(null)
   if (setCurrentPlayer) { 'test' }
@@ -17,15 +17,20 @@ const Game = () => {
     }
   }, [currentStage])
 
+  const testScript = () => {
+    console.log(selectedShip)
+  }
+
   return (
     <div id="game">
+      {selectedShip && <div className="test" onClick={testScript}>hello</div>}
       {
         currentStage === 1 && 
-        <PlaceShips gamePlay={gamePlay} setCurrentStage={setCurrentStage} setSelectedShip={setSelectedShip} />
+        <PlaceShips gamePlay={gamePlay} setCurrentStage={setCurrentStage} selectedShip={selectedShip} setSelectedShip={setSelectedShip} />
       }
       {
         currentStage > 0 &&
-        <DrawBoards gameState={gameState} currentPlayer={currentPlayer} selectedShip={selectedShip}  />
+        <DrawBoards gameState={gameState} currentPlayer={currentPlayer} selectedShip={selectedShip} setSelectedShip={setSelectedShip} />
       }
       {
         currentStage === 2 && 

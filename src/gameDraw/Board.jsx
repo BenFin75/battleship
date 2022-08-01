@@ -1,29 +1,51 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Board = ({ player, gameState, setCoords }) => {
-  if (setCoords) { 1+1 }
+const Board = ({ player, gameState, getCoords, handleHover, removeHover }) => {
+  if (getCoords) { 1+1 }
   const gameBoard = gameState.boardState()[player - 1];
   let j = 0;
+
+  const enter = (e) => {
+    const coords = e.target.getAttribute("data-coords");
+    const rawCoords = coords.split(',');
+    const cell = rawCoords.map(value => { return parseInt(value)});
+    handleHover(player, cell)
+  }
+
+  const leave = () => {
+    // const coords = e.target.getAttribute("data-coords");
+    // const rawCoords = coords.split(',');
+    // const cell = rawCoords.map(value => { return value -= 1 });
+    removeHover(player)
+  }
+
+  
   return (
     <div className="board">
       {
         gameBoard.map(row => {
           let i=0;
-          ++j
+          ++j;
           return (
-          <div className="row" key ={j} >
-            {
-              row.map(() => {
-                ++i
-                return (
-                <div className="cell" key={i} >
-                  cell
-                </div>
-                )
-              })
-            }
-          </div>
+            <div className="row" key = {j} >
+              {
+                row.map(() => {
+                  ++i;
+                  return (
+                    <button 
+                      type="button" 
+                      className="cell" 
+                      key={i} 
+                      data-coords={`${i-1},${j-1}`}
+                      onClick={getCoords} 
+                      onMouseEnter={enter}
+                      onMouseLeave={leave}
+                    />
+                  )
+                })
+              }
+            </div>
           )
         })
       }
@@ -36,9 +58,9 @@ Board.propTypes = {
   gameState: PropTypes.objectOf(
     PropTypes.func,
   ).isRequired,
-  setCoords: PropTypes.arrayOf(
-    PropTypes.number
-  ),
+  getCoords: PropTypes.func,
+  handleHover: PropTypes.func,
+  removeHover: PropTypes.func,
 };
  
 export default Board;

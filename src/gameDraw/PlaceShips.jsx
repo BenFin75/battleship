@@ -1,47 +1,48 @@
 import React, { useEffect } from "react";
 import PropTypes from 'prop-types';
 
-const PlaceShips = ({ gamePlay, setCurrentStage, SelectedShip, setSelectedShip }) => {
+const PlaceShips = ({ gamePlay, setCurrentStage, selectedShip, setSelectedShip }) => {
   if (gamePlay && setCurrentStage) { 'boing' }
-  const handleShipSelection = (e) => {
-    const shipType = e.alt;
-    setSelectedShip(
-      {
-        type: shipType,
-        orientation: 'H'
-      }
-    )
-  }
 
-  const hnadleRoatation = () => {
-    if (SelectedShip.orientation === 'H') {
-      SelectedShip.orientation = 'V'
-    } else {
-      SelectedShip.orientation = 'H'
+  const handleShipSelection = (e) => {
+    if (!e.target.classList.contains('placed')){
+      const clickedShip = {
+        type: e.target.alt,
+        length: parseInt(e.target.getAttribute('data-length')),
+        orientation: 'H',
+        start: null,
+      }
+      setSelectedShip(clickedShip);
+      e.target.className += ' placed';
     }
   }
 
   useEffect(() => {
     const ships = document.querySelectorAll('.ship');
     ships.forEach(ship => {
-      ship.removeEventListener('click', handleShipSelection);
-      if (ship.classList.contains('placed')) {
-        ship.addEventListener('click', handleShipSelection);
-      }
+      ship.addEventListener('click', handleShipSelection, true);
     })
-
   }, [])
   
+  const hnadleRoatation = () => {
+    if (selectedShip.orientation === 'H') {
+      selectedShip.orientation = "V";
+    } else {
+      selectedShip.orientation = "H";
+    }
+  }
+
+
   return (
     <div className="choices">
       <div className="row">
-        <img src="" alt="Crusier" className="ship" />
-        <img src="" alt="Submarine" className="ship" />
-        <img src="" alt="Destoryer" className="ship" />
+        <img src="" alt="Crusier" data-length="5" className="ship" />
+        <img src="" alt="Submarine" data-length="3" className="ship" />
+        <img src="" alt="Destoryer" data-length="2" className="ship" />
       </div>
       <div className="row">
-        <img src="" alt="Barrier" className="ship" />
-        <img src="" alt="Battleship" className="ship" />
+        <img src="" alt="Barrier" data-length="4" className="ship" />
+        <img src="" alt="Battleship" data-length="3" className="ship" />
       </div>
       <button className="rotate" type="button" onClick={hnadleRoatation} >Rotate</button>
     </div>
@@ -53,13 +54,14 @@ PlaceShips.propTypes = {
     PropTypes.func,
   ).isRequired,
   setCurrentStage: PropTypes.func.isRequired,
-  SelectedShip: PropTypes.objectOf(PropTypes.shape({
+  selectedShip: PropTypes.shape({
     type: PropTypes.string,
+    length: PropTypes.number,
     orientation: PropTypes.string,
     start: PropTypes.arrayOf(
-      PropTypes.string
+      PropTypes.number,
     ),
-  })),
+    }),
   setSelectedShip: PropTypes.func.isRequired,
 };
  
