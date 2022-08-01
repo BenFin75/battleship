@@ -17,13 +17,8 @@ const Game = () => {
     }
   }, [currentStage])
 
-  const testScript = () => {
-    console.log(selectedShip)
-  }
-
   return (
     <div id="game">
-      {selectedShip && <div className="test" onClick={testScript}>hello</div>}
       {
         currentStage === 1 && 
         <PlaceShips gamePlay={gamePlay} setCurrentStage={setCurrentStage} selectedShip={selectedShip} setSelectedShip={setSelectedShip} />
