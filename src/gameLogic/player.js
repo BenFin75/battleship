@@ -29,7 +29,7 @@ export default () => {
     }
     let empty = true;
     let end = [];
-    if (orientation === 'H') {
+    if (orientation === 'H') { // for horizontal ships
       end[0] = start[0] + length - 1;
       end[1] = start[1];
       for (let i = start[0]; i <= end[0]; i++) {
@@ -41,7 +41,7 @@ export default () => {
         }
       }
     }
-    if (orientation === 'V') {
+    if (orientation === 'V') { // for vertical ships
       end[0] = start[0];
       end[1] = start[1] + length - 1;
       for (let i = start[1]; i <= end[1]; i++) {
@@ -81,10 +81,22 @@ export default () => {
           }
         }
       }
-      if (ship[1].start[1] === ship[1].end[1]){ // horizzontal
+      if (ship[1].start[1] === ship[1].end[1]){ // vertical
         for (let i = ship[1].start[0]; i <= ship[1].end[0]; i++) {
           if (getGameBoard()[ship[1].start[1]][i] === 1) {
             sunk = false;
+          }
+        }
+      }
+      if (sunk) {
+        if (ship[1].start[0] === ship[1].end[0]){ // horizzontal
+          for (let i = ship[1].start[1]; i <= ship[1].end[1]; i++) {
+            getGameBoard()[ship[1].start[1]][i] = 4
+          }
+        }
+        if (ship[1].start[1] === ship[1].end[1]){ // vertical
+          for (let i = ship[1].start[0]; i <= ship[1].end[0]; i++) {
+            getGameBoard()[i][ship[1].start[0]] = 4
           }
         }
       }

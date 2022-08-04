@@ -4,7 +4,7 @@ import PlaceShips from './PlaceShips';
 import DrawBoards from './DrawBords';
 
 const Game = () => {
-  const [currentStage, setCurrentStage] = useState(0); // 0 = start, 1 = place ships, 2 = play, 3 = gmae has been won
+  const [currentStage, setCurrentStage] = useState(0); // 0 = start, 1 = transition between players, 2 = place ships, 3 = play, 4 = gmae has been won
   const [currentPlayer, setCurrentPlayer] = useState(null);
   const [selectedShip, setSelectedShip] = useState(null)
   const [selectedCoords, setSelectedCoords] = useState(null);
@@ -14,7 +14,7 @@ const Game = () => {
       console.log('starting');
       gameStart();
       setCurrentPlayer(1);
-      setCurrentStage(1);
+      setCurrentStage(2);
       setSelectedShip({
         type: "Carrier",
         length: 5,
@@ -25,13 +25,19 @@ const Game = () => {
   }, [currentStage])
 
   useEffect(() => {
-    if (currentStage === 1) {
+    console.log(selectedCoords)
+    if (currentStage === 2) {
       if (selectedShip) {
         const shipToPlace = selectedShip;
         shipToPlace.start = selectedCoords;
         gamePlay.placeShip(currentPlayer, shipToPlace);
-        if(gameState.shipState()[currentPlayer - 1].includes(selectedShip.type)){
-          currentPlayer === 1 ? setCurrentPlayer(2) : setCurrentPlayer(1);
+        const PlacedShips =  gameState.shipState();
+        if (PlacedShips[1].includes("Destroyer")) {
+          console.log('finished')
+          setCurrentStage(3);
+        }
+        else if (PlacedShips[currentPlayer - 1].includes(selectedShip.type)) {
+          setCurrentStage(1);
           if (currentPlayer === 2) {
             switch (selectedShip.type) {
               case "Carrier":
@@ -73,21 +79,35 @@ const Game = () => {
         }
       }
     }
-  },[selectedCoords])
+    else if (currentStage === 3) {
+      gamePlay.shoot(currentPlayer, selectedCoords);
+      currentPlayer === 1 ? setCurrentPlayer(2) : setCurrentPlayer(1);
+    }
+  },[selectedCoords]);
+
+  const switchPlayer = () => {
+    currentPlayer === 1 ? setCurrentPlayer(2) : setCurrentPlayer(1);
+    setCurrentStage(1);
+  }
 
   return (
     <div id="game">
-      {
-        currentStage === 1 && 
-        <PlaceShips currentPlayer={currentPlayer} selectedShip={selectedShip} />
-      }
-      {
-        currentStage > 0 &&
-        <DrawBoards gameState={gameState} currentPlayer={currentPlayer} selectedShip={selectedShip} setSelectedCoords={setSelectedCoords} />
-      }
+      <div className="test">{currentPlayer}</div>
       {
         currentStage === 2 && 
         <PlaceShips currentPlayer={currentPlayer} selectedShip={selectedShip} />
+      }
+      {
+        currentStage === 1 &&
+        <button className="switch" onClick={switchPlayer}>Switch Player</button>
+      }
+      {
+        currentStage > 1 &&
+        <DrawBoards gameState={gameState} currentPlayer={currentPlayer} selectedShip={selectedShip} setSelectedCoords={setSelectedCoords} currentStage={currentStage} />
+      }
+      {
+        currentStage === 3 && 
+        <div className="test">play time</div>
       }
     </div>
   );

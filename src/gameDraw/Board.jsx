@@ -17,7 +17,7 @@ const Board = ({ currentPlayer, player, gameState, getCoords, handleHover, remov
   }
 
   const getCoordinants = (e) => {
-    if (currentPlayer === player) {
+    if (currentPlayer === player || player === 3) {
       getCoords(e)
     }
   }

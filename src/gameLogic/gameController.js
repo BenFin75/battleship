@@ -10,10 +10,12 @@ const possibleShips = [
 
 let playerOne;
 let playerTwo;
+let PlayBoard;
 
 const gameStart = () => {
   playerOne = player();
   playerTwo = player();
+  PlayBoard = player();
 }
 
 const gameState = (() => {
@@ -32,6 +34,7 @@ const gameState = (() => {
     let currentBoardState = [];
     currentBoardState.push(playerOne.getGameBoard());
     currentBoardState.push(playerTwo.getGameBoard());
+    currentBoardState.push(PlayBoard.getGameBoard());
     return currentBoardState;
   }
 
@@ -55,7 +58,10 @@ const gamePlay = (()=> {
     }
   }
 
-  const shoot = (playerShootin, x, y) => {
+  const shoot = (playerShootin, coords) => {
+    const x = coords[0];
+    const y = coords[1];
+    console.log(x, y)
     if (playerShootin === 1) {
       playerTwo.getHit(x,y)
     } else {
