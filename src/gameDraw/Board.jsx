@@ -13,10 +13,7 @@ const Board = ({ currentPlayer, player, gameState, getCoords, handleHover, remov
   }
 
   const leave = () => {
-    // const coords = e.target.getAttribute("data-coords");
-    // const rawCoords = coords.split(',');
-    // const cell = rawCoords.map(value => { return value -= 1 });
-    removeHover(player)
+    removeHover()
   }
 
   const getCoordinants = (e) => {
@@ -43,6 +40,7 @@ const Board = ({ currentPlayer, player, gameState, getCoords, handleHover, remov
                       key={i} 
                       data-coords={`${i-1},${j-1}`}
                       data-status={status}
+                      data-player={player}
                       onClick={getCoordinants} 
                       onMouseEnter={enter}
                       onMouseLeave={leave}

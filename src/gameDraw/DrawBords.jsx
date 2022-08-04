@@ -12,15 +12,15 @@ const DrawBoards = ({ gameState, currentPlayer, selectedShip, setSelectedCoords 
   }
 
   const handleHover = (player, cell) => {
-    if ( player === 1 && selectedShip ) {
+    if ( player === currentPlayer && selectedShip ) {
       const start = cell;
       const length = selectedShip.length;
       const orientation = selectedShip.orientation;
       if (orientation === 'H') {
         for (let i = start[0]; i < start[0] + length; i++) {
           const coord = `${i},${start[1]}`;
-          if(document.querySelector(`[data-coords="${coord}"`)) {
-            const highlighted = document.querySelector(`[data-coords="${coord}"`);
+          if(document.querySelector(`[data-coords="${coord}"]`)) {
+            const highlighted = document.querySelector(`[data-coords="${coord}"][data-player="${player}"]`);
             highlighted.classList.add('hoverboat')
           }
         }
@@ -29,7 +29,7 @@ const DrawBoards = ({ gameState, currentPlayer, selectedShip, setSelectedCoords 
         for (let i = start[1]; i < start[1] + length; i++) {
           const coord = `${start[0]},${i}`;
           if(document.querySelector(`[data-coords="${coord}"`)) {
-            const highlighted = document.querySelector(`[data-coords="${coord}"`);
+            const highlighted = document.querySelector(`[data-coords="${coord}][data-player="${player}"]"`);
             highlighted.classList.add('hoverboat')
           }
         }
@@ -37,8 +37,8 @@ const DrawBoards = ({ gameState, currentPlayer, selectedShip, setSelectedCoords 
     }
   }
 
-  const removeHover = (player) => {
-    if ( player === 1 && selectedShip ) {
+  const removeHover = () => {
+    if ( selectedShip ) {
       const highlighted = document.querySelectorAll('.hoverboat')
       if (highlighted) {
         highlighted.forEach(cell => {

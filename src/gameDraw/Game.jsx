@@ -78,7 +78,7 @@ const Game = () => {
     <div id="game">
       {
         currentStage === 1 && 
-        <PlaceShips gamePlay={gamePlay} setCurrentStage={setCurrentStage} selectedShip={selectedShip} setSelectedShip={setSelectedShip} />
+        <PlaceShips currentPlayer={currentPlayer} selectedShip={selectedShip} />
       }
       {
         currentStage > 0 &&
@@ -86,7 +86,7 @@ const Game = () => {
       }
       {
         currentStage === 2 && 
-        <PlaceShips gamePlay={gamePlay} />
+        <PlaceShips currentPlayer={currentPlayer} selectedShip={selectedShip} />
       }
     </div>
   );
