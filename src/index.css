@@ -42,7 +42,19 @@ code {
 }
 
 [data-status="1"] {
-  border: 3px solid blue;
+  background-color: blue;
+}
+
+[data-status="2"] {
+  background-color: yellow;
+}
+
+[data-status="3"] {
+  background-color: red;
+}
+
+[data-status="4"] {
+  background-color: purple;
 }
 
 img {
