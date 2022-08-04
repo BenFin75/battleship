@@ -40,3 +40,11 @@ code {
 .hoverboat {
   border: 1px solid red;
 }
+
+[data-status="1"] {
+  border: 3px solid blue;
+}
+
+img {
+  padding: 5px;
+}

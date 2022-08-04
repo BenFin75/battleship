@@ -6,6 +6,7 @@ export default () => {
   let ships = {}
 
   const placeShip = (type, orientation, start) => {
+    console.log(type);
     let length;
     switch (type) {
       case "Carrier":
@@ -14,6 +15,12 @@ export default () => {
       case "Battleship":
         length = 4;
         break;
+      case "Cruiser":
+        length = 3;
+        break;
+      case "Submarine":
+        length = 3;
+        break;
       case "Destroyer":
         length = 2;
         break;
@@ -21,25 +28,30 @@ export default () => {
         length = 3;
         break;
     }
-    if (type === "Carrier") {
-      length = 5;
-    }
+    console.log(length)
     let empty = true;
     let end = [];
     if (orientation === 'H') {
-      end[0] = start[0];
-      end[1] = start[1] + length - 1;
-      for (let i = start[1]; i <= end[1]; i++) {
-        if (board.getGameBoard()[start[0]][i] === 1) {
+      end[0] = start[0] + length - 1;
+      end[1] = start[1];
+      console.log(start, end)
+      for (let i = start[0]; i <= end[0]; i++) {
+        if (board.getGameBoard()[start[1]][i] === 1) {
+          empty = false;
+        }
+        if (board.getGameBoard()[start[1]][i] == null) {
           empty = false;
         }
       }
     }
     if (orientation === 'V') {
-      end[0] = start[0] + length - 1;
-      end[1] = start[1];
-      for (let i = start[0]; i <= end[0]; i++) {
-        if (board.getGameBoard()[i][start[1]] === 1) {
+      end[0] = start[0];
+      end[1] = start[1] + length - 1;
+      for (let i = start[1]; i <= end[1]; i++) {
+        if (board.getGameBoard()[i][start[0]] === 1) {
+          empty = false;
+        }
+        if (board.getGameBoard()[start[1]][i] == null) {
           empty = false;
         }
       }
@@ -48,6 +60,7 @@ export default () => {
       ships[type] = {start, end, "sunk": false}
       board.placeShip(start, end);
     } else {
+      console.log('overlap')
       return 'No Overlap'
     }
   }

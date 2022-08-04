@@ -30,7 +30,7 @@ const Board = ({ player, gameState, getCoords, handleHover, removeHover }) => {
           return (
             <div className="row" key = {j} >
               {
-                row.map(() => {
+                row.map(status => {
                   ++i;
                   return (
                     <button 
@@ -38,6 +38,7 @@ const Board = ({ player, gameState, getCoords, handleHover, removeHover }) => {
                       className="cell" 
                       key={i} 
                       data-coords={`${i-1},${j-1}`}
+                      data-status={status}
                       onClick={getCoords} 
                       onMouseEnter={enter}
                       onMouseLeave={leave}

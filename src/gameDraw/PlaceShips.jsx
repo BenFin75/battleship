@@ -4,6 +4,16 @@ import PropTypes from 'prop-types';
 const PlaceShips = ({ gamePlay, setCurrentStage, selectedShip, setSelectedShip }) => {
   if (gamePlay && setCurrentStage) { 'boing' }
 
+  // const keepType = selectedShip.type;
+  // const keepOrientation = selectedShip.orientation;
+  // setSelectedShip(
+  //   {
+  //     type: keepType,
+  //     orientation: keepOrientation,
+  //     start: cell,
+  //   }
+  // )
+
   const handleShipSelection = (e) => {
     if (!e.target.classList.contains('placed')){
       const clickedShip = {
@@ -36,13 +46,13 @@ const PlaceShips = ({ gamePlay, setCurrentStage, selectedShip, setSelectedShip }
   return (
     <div className="choices">
       <div className="row">
-        <img src="" alt="Crusier" data-length="5" className="ship" />
-        <img src="" alt="Submarine" data-length="3" className="ship" />
-        <img src="" alt="Destoryer" data-length="2" className="ship" />
+        <img src="" alt="Carrier" data-length="5" className="ship" />
+        <img src="" alt="Battleship" data-length="4" className="ship" />
+        <img src="" alt="Crusier" data-length="3" className="ship" />
       </div>
       <div className="row">
-        <img src="" alt="Barrier" data-length="4" className="ship" />
-        <img src="" alt="Battleship" data-length="3" className="ship" />
+        <img src="" alt="Submarine" data-length="3" className="ship" />
+        <img src="" alt="Destroyer" data-length="2" className="ship" />
       </div>
       <button className="rotate" type="button" onClick={hnadleRoatation} >Rotate</button>
     </div>

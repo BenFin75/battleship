@@ -2,24 +2,16 @@ import React from "react";
 import PropTypes from 'prop-types';
 import Board from './Board';
 
-const DrawBoards = ({ gameState, currentPlayer, selectedShip, setSelectedShip }) => {
+const DrawBoards = ({ gameState, currentPlayer, selectedShip, setSelectedCoords }) => {
   if (currentPlayer) { 1+1 }
+  
   const getCoords = (e) => {
+    console.log(gameState)
     const coords = e.target.getAttribute("data-coords");
     const rawCoords = coords.split(',');
-    let cell = rawCoords.map(value => { return parseInt(value)});
-    cell = [5,4]
+    const cell = rawCoords.map(value => { return parseInt(value)});
     console.log(cell)
-    const keepType = selectedShip.type;
-    const keepOrientation = selectedShip.orientation;
-    setSelectedShip(
-      {
-        type: keepType,
-        orientation: keepOrientation,
-        start: cell,
-      }
-    )
-    console.log(selectedShip)
+    setSelectedCoords(cell)
   }
 
   //gameState === 1 && 
@@ -63,7 +55,7 @@ const DrawBoards = ({ gameState, currentPlayer, selectedShip, setSelectedShip })
 
   return (
     <div className="board-container">
-      <Board id='one' player={1} gameState={gameState} getCoords={getCoords} handleHover={handleHover} removeHover={removeHover} />
+      <Board id='one' hilight={currentPlayer} player={1} gameState={gameState} getCoords={getCoords} handleHover={handleHover} removeHover={removeHover} />
       <Board id='two' player={2} gameState={gameState} getCoords={getCoords} handleHover={handleHover} removeHover={removeHover} />
     </div>
   );
@@ -82,7 +74,7 @@ DrawBoards.propTypes = {
       PropTypes.number,
     ),
     }),
-  setSelectedShip: PropTypes.func
+    setSelectedCoords: PropTypes.func
 };
 
 export default DrawBoards;
