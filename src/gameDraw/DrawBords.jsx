@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Board from './Board';
 
 const DrawBoards = ({ gameState, currentPlayer, selectedShip, setSelectedCoords }) => {
-  if (currentPlayer) { 1+1 }
   
   const getCoords = (e) => {
     const coords = e.target.getAttribute("data-coords");
@@ -11,8 +10,6 @@ const DrawBoards = ({ gameState, currentPlayer, selectedShip, setSelectedCoords 
     const cell = rawCoords.map(value => { return parseInt(value)});
     setSelectedCoords(cell)
   }
-
-  //gameState === 1 && 
 
   const handleHover = (player, cell) => {
     if ( player === 1 && selectedShip ) {
@@ -53,8 +50,8 @@ const DrawBoards = ({ gameState, currentPlayer, selectedShip, setSelectedCoords 
 
   return (
     <div className="board-container">
-      <Board id='one' hilight={currentPlayer} player={1} gameState={gameState} getCoords={getCoords} handleHover={handleHover} removeHover={removeHover} />
-      <Board id='two' player={2} gameState={gameState} getCoords={getCoords} handleHover={handleHover} removeHover={removeHover} />
+      <Board id='one' currentPlayer={currentPlayer} player={1} gameState={gameState} getCoords={getCoords} handleHover={handleHover} removeHover={removeHover} />
+      <Board id='two' currentPlayer={currentPlayer} player={2} gameState={gameState} getCoords={getCoords} handleHover={handleHover} removeHover={removeHover} />
     </div>
   );
 }

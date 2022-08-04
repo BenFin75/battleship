@@ -6,7 +6,6 @@ export default () => {
   let ships = {}
 
   const placeShip = (type, orientation, start) => {
-    console.log(type);
     let length;
     switch (type) {
       case "Carrier":
@@ -28,13 +27,11 @@ export default () => {
         length = 3;
         break;
     }
-    console.log(length)
     let empty = true;
     let end = [];
     if (orientation === 'H') {
       end[0] = start[0] + length - 1;
       end[1] = start[1];
-      console.log(start, end)
       for (let i = start[0]; i <= end[0]; i++) {
         if (board.getGameBoard()[start[1]][i] === 1) {
           empty = false;

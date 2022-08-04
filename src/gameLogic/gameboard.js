@@ -14,12 +14,10 @@ const gameBoard = () => {
   const placeShip = (start, end) => {
     if (start[1] === end[1]) { //place horizontally
       for (let i = start[0]; i <= end[0]; i++) {
-        console.log(i, start[1])
         gameBoard[start[1]][i] = 1;
       }
     } else { // place vertically
       for (let i = start[1]; i <= end[1]; i++) {
-        console.log(start[0], i)
         gameBoard[i][start[0]] = 1;
       }
     }

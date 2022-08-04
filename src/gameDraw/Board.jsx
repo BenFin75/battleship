@@ -1,8 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Board = ({ player, gameState, getCoords, handleHover, removeHover }) => {
-  if (getCoords) { 1+1 }
+const Board = ({ currentPlayer, player, gameState, getCoords, handleHover, removeHover }) => {
   const gameBoard = gameState.boardState()[player - 1];
   let j = 0;
 
@@ -20,6 +19,11 @@ const Board = ({ player, gameState, getCoords, handleHover, removeHover }) => {
     removeHover(player)
   }
 
+  const getCoordinants = (e) => {
+    if (currentPlayer === player) {
+      getCoords(e)
+    }
+  }
   
   return (
     <div className="board">
@@ -39,7 +43,7 @@ const Board = ({ player, gameState, getCoords, handleHover, removeHover }) => {
                       key={i} 
                       data-coords={`${i-1},${j-1}`}
                       data-status={status}
-                      onClick={getCoords} 
+                      onClick={getCoordinants} 
                       onMouseEnter={enter}
                       onMouseLeave={leave}
                     />
@@ -55,6 +59,7 @@ const Board = ({ player, gameState, getCoords, handleHover, removeHover }) => {
 }
 
 Board.propTypes = {
+  currentPlayer: PropTypes.number.isRequired,
   player: PropTypes.number.isRequired,
   gameState: PropTypes.objectOf(
     PropTypes.func,
