@@ -29,7 +29,7 @@ const DrawBoards = ({ gameState, currentPlayer, selectedShip, setSelectedCoords 
         for (let i = start[1]; i < start[1] + length; i++) {
           const coord = `${start[0]},${i}`;
           if(document.querySelector(`[data-coords="${coord}"`)) {
-            const highlighted = document.querySelector(`[data-coords="${coord}][data-player="${player}"]"`);
+            const highlighted = document.querySelector(`[data-coords="${coord}"][data-player="${player}"]`);
             highlighted.classList.add('hoverboat')
           }
         }

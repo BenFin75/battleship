@@ -35,7 +35,14 @@ const gameState = (() => {
     return currentBoardState;
   }
 
-  return { checkForWin, boardState };
+  const shipState = () => {
+    let currentShipState = [];
+    currentShipState.push(playerOne.getPlacedShips());
+    currentShipState.push(playerTwo.getPlacedShips());
+    return currentShipState;
+  }
+
+  return { checkForWin, boardState, shipState };
 })()
 
 const gamePlay = (()=> {

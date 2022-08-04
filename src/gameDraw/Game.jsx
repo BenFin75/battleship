@@ -30,44 +30,45 @@ const Game = () => {
         const shipToPlace = selectedShip;
         shipToPlace.start = selectedCoords;
         gamePlay.placeShip(currentPlayer, shipToPlace);
-        currentPlayer === 1 ? setCurrentPlayer(2) : setCurrentPlayer(1);
-        console.log(currentPlayer)
-        if (currentPlayer === 2) {
-          switch (selectedShip.type) {
-            case "Carrier":
-              setSelectedShip({
-                type: "Battleship",
-                length: 4,
-                orientation: 'H',
-                start: null,
-              });
-              break;
-            case "Battleship":
-              setSelectedShip({
-                type: "Crusier",
-                length: 3,
-                orientation: 'H',
-                start: null,
-              });
-              break;
-            case "Crusier":
-              setSelectedShip({
-                type: "Submarine",
-                length: 3,
-                orientation: 'H',
-                start: null,
-              });
-              break;
-            case "Submarine":
-              setSelectedShip({
-                type: "Destroyer",
-                length: 2,
-                orientation: 'H',
-                start: null,
-              });
-              break;
-            default:
-              setSelectedShip(null);
+        if(gameState.shipState()[currentPlayer - 1].includes(selectedShip.type)){
+          currentPlayer === 1 ? setCurrentPlayer(2) : setCurrentPlayer(1);
+          if (currentPlayer === 2) {
+            switch (selectedShip.type) {
+              case "Carrier":
+                setSelectedShip({
+                  type: "Battleship",
+                  length: 4,
+                  orientation: 'H',
+                  start: null,
+                });
+                break;
+              case "Battleship":
+                setSelectedShip({
+                  type: "Crusier",
+                  length: 3,
+                  orientation: 'H',
+                  start: null,
+                });
+                break;
+              case "Crusier":
+                setSelectedShip({
+                  type: "Submarine",
+                  length: 3,
+                  orientation: 'H',
+                  start: null,
+                });
+                break;
+              case "Submarine":
+                setSelectedShip({
+                  type: "Destroyer",
+                  length: 2,
+                  orientation: 'H',
+                  start: null,
+                });
+                break;
+              default:
+                setSelectedShip(null);
+            }
           }
         }
       }

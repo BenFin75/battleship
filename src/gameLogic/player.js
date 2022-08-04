@@ -92,6 +92,14 @@ export default () => {
     })
   }
 
+  const getPlacedShips = () => {
+    const placedShips = [];
+    Object.keys(ships).forEach ( ship => {
+      placedShips.push(ship)
+    })
+    return placedShips
+  }
+
   const getSunkShips = () => {
     let sunkShips = {}
     Object.entries(ships).forEach( ship => {
@@ -102,6 +110,6 @@ export default () => {
     return sunkShips;
   }
 
-  return { getGameBoard, placeShip, getHit, getSunkShips }
+  return { getGameBoard, placeShip, getHit, getSunkShips, getPlacedShips }
 };
 
