@@ -6,11 +6,9 @@ const DrawBoards = ({ gameState, currentPlayer, selectedShip, setSelectedCoords 
   if (currentPlayer) { 1+1 }
   
   const getCoords = (e) => {
-    console.log(gameState)
     const coords = e.target.getAttribute("data-coords");
     const rawCoords = coords.split(',');
     const cell = rawCoords.map(value => { return parseInt(value)});
-    console.log(cell)
     setSelectedCoords(cell)
   }
 

@@ -21,13 +21,12 @@ const Game = () => {
 
   useEffect(() => {
     if (currentStage === 1) {
-      console.log('place' + selectedCoords)
-      const shipToPlace = selectedShip;
-      shipToPlace.start = selectedCoords;
-      console.log(shipToPlace.start)
-      gamePlay.placeShip(1, shipToPlace);
-      console.log(gameState.boardState())
-      setCurrentPlayer(currentPlayer + 1);
+      if (selectedShip) {
+        const shipToPlace = selectedShip;
+        shipToPlace.start = selectedCoords;
+        gamePlay.placeShip(1, shipToPlace);
+        setCurrentPlayer(currentPlayer + 1);
+      }
     }
   },[selectedCoords])
 
