@@ -2,7 +2,35 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const Board = ({ currentPlayer, player, gameState, getCoords, handleHover, removeHover }) => {
-  const gameBoard = gameState.boardState()[player - 1];
+  let gameBoard;
+  if (player <= 2) {
+    gameBoard = gameState.boardState()[player - 1];
+  }
+  if (player === 3) {
+    gameBoard = [];
+    let playerBoard;
+    if (currentPlayer === 1){
+      playerBoard = gameState.boardState()[1]
+    }
+    if (currentPlayer === 2){
+      playerBoard = gameState.boardState()[0]
+    }
+    playerBoard.forEach(row => {
+      const newRow = [];
+      row.forEach(cell => {
+        let newCell;
+        if (cell === 1) {
+          cell = 0;
+        }
+        else {
+          newCell = cell;
+        }
+        newRow.push(newCell);
+      })
+      gameBoard.push(newRow);
+    });
+    console.log(gameBoard);
+  }
   let j = 0;
 
   const enter = (e) => {
@@ -23,35 +51,43 @@ const Board = ({ currentPlayer, player, gameState, getCoords, handleHover, remov
   }
   
   return (
-    <div className="board">
+    <div className="board-area">
       {
-        gameBoard.map(row => {
-          let i=0;
-          ++j;
-          return (
-            <div className="row" key = {j} >
-              {
-                row.map(status => {
-                  ++i;
-                  return (
-                    <button 
-                      type="button" 
-                      className="cell" 
-                      key={i} 
-                      data-coords={`${i-1},${j-1}`}
-                      data-status={status}
-                      data-player={player}
-                      onClick={getCoordinants} 
-                      onMouseEnter={enter}
-                      onMouseLeave={leave}
-                    />
-                  )
-                })
-              }
-            </div>
-          )
-        })
+        player <= 2 && <div className="title">Your Board</div>
       }
+      {
+        player === 3 && <div className="title">Opponents Board</div>
+      }
+      <div className="board">
+        {
+          gameBoard.map(row => {
+            let i=0;
+            ++j;
+            return (
+              <div className="row" key = {j} >
+                {
+                  row.map(status => {
+                    ++i;
+                    return (
+                      <button 
+                        type="button" 
+                        className="cell" 
+                        key={i} 
+                        data-coords={`${i-1},${j-1}`}
+                        data-status={status}
+                        data-player={player}
+                        onClick={getCoordinants} 
+                        onMouseEnter={enter}
+                        onMouseLeave={leave}
+                      />
+                    )
+                  })
+                }
+              </div>
+            )
+          })
+        }
+      </div>
     </div>
   );
 }

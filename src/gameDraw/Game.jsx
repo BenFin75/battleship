@@ -4,7 +4,7 @@ import PlaceShips from './PlaceShips';
 import DrawBoards from './DrawBords';
 
 const Game = () => {
-  const [currentStage, setCurrentStage] = useState(0); // 0 = start, 1 = transition between players, 2 = place ships, 3 = play, 4 = gmae has been won
+  const [currentStage, setCurrentStage] = useState(0); // 0 = start, 1 = transition between players, 2 = place ships, 3 = play, 4 = switch between players, 5 = gmae has been won
   const [currentPlayer, setCurrentPlayer] = useState(null);
   const [selectedShip, setSelectedShip] = useState(null)
   const [selectedCoords, setSelectedCoords] = useState(null);
@@ -25,7 +25,6 @@ const Game = () => {
   }, [currentStage])
 
   useEffect(() => {
-    console.log(selectedCoords)
     if (currentStage === 2) {
       if (selectedShip) {
         const shipToPlace = selectedShip;
@@ -34,6 +33,7 @@ const Game = () => {
         const PlacedShips =  gameState.shipState();
         if (PlacedShips[1].includes("Destroyer")) {
           console.log('finished')
+          setCurrentPlayer(1);
           setCurrentStage(3);
         }
         else if (PlacedShips[currentPlayer - 1].includes(selectedShip.type)) {
@@ -81,28 +81,39 @@ const Game = () => {
     }
     else if (currentStage === 3) {
       gamePlay.shoot(currentPlayer, selectedCoords);
-      currentPlayer === 1 ? setCurrentPlayer(2) : setCurrentPlayer(1);
+      setCurrentStage(4);
     }
   },[selectedCoords]);
 
-  const switchPlayer = () => {
-    currentPlayer === 1 ? setCurrentPlayer(2) : setCurrentPlayer(1);
-    setCurrentStage(1);
+  const switchPlayer = (stage) => {
+    if (stage === 1) {
+      currentPlayer === 1 ? setCurrentPlayer(2) : setCurrentPlayer(1);
+      setCurrentStage(2);
+    }
+    if (stage === 4) {
+      currentPlayer === 1 ? setCurrentPlayer(2) : setCurrentPlayer(1);
+      setCurrentStage(3);
+    }
   }
 
   return (
     <div id="game">
-      <div className="test">{currentPlayer}</div>
+      <div className="test">{"Player: " + currentPlayer}</div>
+      <div className="test">{"Stage: " + currentStage}</div>
       {
         currentStage === 2 && 
         <PlaceShips currentPlayer={currentPlayer} selectedShip={selectedShip} />
       }
       {
         currentStage === 1 &&
-        <button className="switch" onClick={switchPlayer}>Switch Player</button>
+        <button className="switch" onClick={() => {switchPlayer(1)}}>Switch Player</button>
       }
       {
-        currentStage > 1 &&
+        currentStage === 4 &&
+        <button className="switch" onClick={() => {switchPlayer(4)}}>Switch Player</button>
+      }
+      {
+        currentStage > 1 && currentStage < 4 &&
         <DrawBoards gameState={gameState} currentPlayer={currentPlayer} selectedShip={selectedShip} setSelectedCoords={setSelectedCoords} currentStage={currentStage} />
       }
       {

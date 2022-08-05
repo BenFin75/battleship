@@ -59,8 +59,8 @@ const gamePlay = (()=> {
   }
 
   const shoot = (playerShootin, coords) => {
-    const x = coords[0];
-    const y = coords[1];
+    const x = coords[1];
+    const y = coords[0];
     console.log(x, y)
     if (playerShootin === 1) {
       playerTwo.getHit(x,y)

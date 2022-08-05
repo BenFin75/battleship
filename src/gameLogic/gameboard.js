@@ -29,7 +29,6 @@ const gameBoard = () => {
     } else {
       gameBoard[x][y] = 2;
     }
-    console.log(gameBoard)
   }
 
   const getGameBoard = () => {
