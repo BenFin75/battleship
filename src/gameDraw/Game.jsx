@@ -8,6 +8,7 @@ const Game = () => {
   const [currentPlayer, setCurrentPlayer] = useState(null);
   const [selectedShip, setSelectedShip] = useState(null)
   const [selectedCoords, setSelectedCoords] = useState(null);
+  let winner = 0;
 
   useEffect(() => {
     if (currentStage === 0) {
@@ -81,7 +82,13 @@ const Game = () => {
     }
     else if (currentStage === 3) {
       gamePlay.shoot(currentPlayer, selectedCoords);
-      setCurrentStage(4);
+      if (gameState.checkForWin()) {
+        winner = gameState.checkForWin();
+        setCurrentStage(5);
+      }
+      else {
+        setCurrentStage(4);
+      }
     }
   },[selectedCoords]);
 
@@ -99,7 +106,6 @@ const Game = () => {
   return (
     <div id="game">
       <div className="test">{"Player: " + currentPlayer}</div>
-      <div className="test">{"Stage: " + currentStage}</div>
       {
         currentStage === 2 && 
         <PlaceShips currentPlayer={currentPlayer} selectedShip={selectedShip} />
@@ -117,8 +123,11 @@ const Game = () => {
         <DrawBoards gameState={gameState} currentPlayer={currentPlayer} selectedShip={selectedShip} setSelectedCoords={setSelectedCoords} currentStage={currentStage} />
       }
       {
-        currentStage === 3 && 
-        <div className="test">play time</div>
+        currentStage === 5 &&
+        <div className="win-screen">
+          <div className="winner">{winner === 1 ? "Player One " : "Player Two " + "Wins!"}</div>
+          <button onClick={() => {window.location.reload()}}>Play Again?</button>
+        </div>
       }
     </div>
   );

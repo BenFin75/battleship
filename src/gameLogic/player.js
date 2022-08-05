@@ -76,29 +76,20 @@ export default () => {
       let sunk = true;
       if (ship[1].start[0] === ship[1].end[0]){ // horizzontal
         for (let i = ship[1].start[1]; i <= ship[1].end[1]; i++) {
-          if (getGameBoard()[ship[1].start[0]][i] === 1) {
+          if (board.getGameBoard()[ship[1].start[0]][i] === 1) {
             sunk = false;
           }
         }
       }
       if (ship[1].start[1] === ship[1].end[1]){ // vertical
         for (let i = ship[1].start[0]; i <= ship[1].end[0]; i++) {
-          if (getGameBoard()[ship[1].start[1]][i] === 1) {
+          if (board.getGameBoard()[ship[1].start[1]][i] === 1) {
             sunk = false;
           }
         }
       }
       if (sunk) {
-        if (ship[1].start[0] === ship[1].end[0]){ // horizzontal
-          for (let i = ship[1].start[1]; i <= ship[1].end[1]; i++) {
-            getGameBoard()[ship[1].start[1]][i] = 4
-          }
-        }
-        if (ship[1].start[1] === ship[1].end[1]){ // vertical
-          for (let i = ship[1].start[0]; i <= ship[1].end[0]; i++) {
-            getGameBoard()[i][ship[1].start[0]] = 4
-          }
-        }
+        board.sinkShip(ship[1].start, ship[1].end);
       }
       ships[ship[0]].sunk = sunk;
     })

@@ -29,7 +29,6 @@ const Board = ({ currentPlayer, player, gameState, getCoords, handleHover, remov
       })
       gameBoard.push(newRow);
     });
-    console.log(gameBoard);
   }
   let j = 0;
 

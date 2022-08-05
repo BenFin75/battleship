@@ -31,12 +31,24 @@ const gameBoard = () => {
     }
   }
 
+  const sinkShip = (start, end) => {
+    if (start[1] === end[1]) { //horizontal
+      for (let i = start[0]; i <= end[0]; i++) {
+        gameBoard[start[1]][i] = 4;
+      }
+    } else { // vertical
+      for (let i = start[1]; i <= end[1]; i++) {
+        gameBoard[i][start[0]] = 4;
+      }
+    }
+  }
+
   const getGameBoard = () => {
     const gameBoardState = JSON.parse(JSON.stringify(gameBoard))
     return gameBoardState
   }
 
-  return { createGameBoard, placeShip, getHit, getGameBoard }
+  return { createGameBoard, placeShip, getHit, sinkShip, getGameBoard }
 }
 
 module.exports = gameBoard;
