@@ -74,16 +74,17 @@ export default () => {
   const checkForSunkShips = () => {
     Object.entries(ships).forEach( ship => {
       let sunk = true;
-      if (ship[1].start[0] === ship[1].end[0]){ // horizzontal
-        for (let i = ship[1].start[1]; i <= ship[1].end[1]; i++) {
-          if (board.getGameBoard()[ship[1].start[0]][i] === 1) {
+      if (ship[1].start[1] === ship[1].end[1]){ // horizzontal
+        console.log('here')
+        for (let i = ship[1].start[0]; i <= ship[1].end[0]; i++) {
+          if (board.getGameBoard()[ship[1].start[1]][i] === 1) {
             sunk = false;
           }
         }
       }
-      if (ship[1].start[1] === ship[1].end[1]){ // vertical
-        for (let i = ship[1].start[0]; i <= ship[1].end[0]; i++) {
-          if (board.getGameBoard()[ship[1].start[1]][i] === 1) {
+      if (ship[1].start[0] === ship[1].end[0]){ // vertical
+        for (let i = ship[1].start[1]; i <= ship[1].end[1]; i++) {
+          if (board.getGameBoard()[i][ship[1].start[0]] === 1) {
             sunk = false;
           }
         }

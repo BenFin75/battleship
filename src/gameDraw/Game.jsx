@@ -105,7 +105,6 @@ const Game = () => {
 
   return (
     <div id="game">
-      <div className="test">{"Player: " + currentPlayer}</div>
       {
         currentStage === 2 && 
         <PlaceShips currentPlayer={currentPlayer} selectedShip={selectedShip} />
