@@ -12,8 +12,24 @@ code {
     monospace;
 }
 
+.App {
+  min-height: 75vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.game {
+  margin-bottom: 80%;
+}
+
+.choices > * {
+  margin-top: 2rem;
+}
+
 .board-container {
-  height: 50vh;
+  height: 25vh;
   display: flex;
   justify-content: center;
   align-items: center;
