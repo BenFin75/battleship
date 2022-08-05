@@ -5,14 +5,17 @@ import Board from './Board';
 const DrawBoards = ({ gameState, currentPlayer, selectedShip, setSelectedCoords, currentStage }) => {
   
   const getCoords = (e) => {
-    const coords = e.target.getAttribute("data-coords");
-    const rawCoords = coords.split(',');
-    const cell = rawCoords.map(value => { return parseInt(value)});
-    setSelectedCoords(cell)
+    // console.log(e.target.dataset.player)
+    if ( currentStage === 2 || e.target.dataset.player === "3") {
+      const coords = e.target.getAttribute("data-coords");
+      const rawCoords = coords.split(',');
+      const cell = rawCoords.map(value => { return parseInt(value)});
+      setSelectedCoords(cell)
+    }
   }
 
   const handleHover = (player, cell) => {
-    if ( player === currentPlayer && selectedShip ) {
+    if ( player === currentPlayer && selectedShip && currentStage === 2) {
       const start = cell;
       const length = selectedShip.length;
       const orientation = selectedShip.orientation;
